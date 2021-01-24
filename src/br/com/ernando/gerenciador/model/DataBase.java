@@ -8,6 +8,7 @@ import java.util.List;
 public class DataBase {
 	
 	private static List<Empresa> empresas = new LinkedList<Empresa>();
+	private static List<Usuario> usuarios = new LinkedList<Usuario>();
 	private static Integer chaveSequencial = 1;
 	
 	static {
@@ -21,6 +22,15 @@ public class DataBase {
 		e2.setDataAbertura(new Date());
 		empresas.add(e1);
 		empresas.add(e2);
+		
+		Usuario u1 = new Usuario();
+		u1.setLogin("ernando");
+		u1.setSenha("12345");
+		Usuario u2 = new Usuario();
+		u2.setLogin("lu");
+		u2.setSenha("12345");
+		usuarios.add(u1);
+		usuarios.add(u2);
 	}
 
 	public static void adicionaEmrpesa(Empresa empresa) {
@@ -51,6 +61,15 @@ public class DataBase {
 			Empresa empresa = it.next();
 			if(empresa.getId().equals(id)) {
 				return empresa;
+			}
+		}
+		return null;
+	}
+
+	public static Usuario existeUsuario(String login, String senha) {
+		for (Usuario usuario : usuarios) {
+			if (usuario.ehIgual(login, senha)) {
+				return usuario;
 			}
 		}
 		return null;

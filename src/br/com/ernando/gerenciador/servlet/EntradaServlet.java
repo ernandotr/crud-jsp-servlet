@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.ernando.gerenciador.acao.Acao;
 
@@ -18,6 +19,15 @@ public class EntradaServlet extends HttpServlet {
 	@Override
 		protected void service(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 			String paramAcao = request.getParameter("acao");
+			
+			HttpSession session = request.getSession();
+			boolean usuarioNaoLogado = (session.getAttribute("usuarioLogado") == null);
+			boolean ehUmaAcaoProtegida = !(paramAcao.contentEquals("Login") || paramAcao.contentEquals("LoginForm"));
+			
+			if(ehUmaAcaoProtegida && usuarioNaoLogado) {
+				response.sendRedirect("entrada?acao=LoginForm");
+				return;
+			}
 			String nomeDaClasse  = "br.com.ernando.gerenciador.acao."+paramAcao;
 			
 			String nome;

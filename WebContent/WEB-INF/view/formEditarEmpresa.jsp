@@ -8,6 +8,7 @@
 <title>Cadastro de Empresa</title>
 </head>
 <body>
+	<c:import url="logout-parcial.jsp"></c:import>
 	<h1>Cadastro de Empresa</h1>
 	<hr>
 	<form action="${entrada }" method="post">
