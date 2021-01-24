@@ -1,27 +1,18 @@
-package br.com.ernando.gerenciador.servlet;
+package br.com.ernando.gerenciador.acao;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.ernando.gerenciador.model.DataBase;
 import br.com.ernando.gerenciador.model.Empresa;
 
-/**
- * Servlet implementation class NovaEmpresa
- */
-@WebServlet(urlPatterns="/novaEmpresa")
-public class NovaEmpresa extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class NovaEmpresa implements Acao{
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public String executa(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 		String nomeEmpresa = req.getParameter("nome");
 		String paramData = req.getParameter("data");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -35,10 +26,6 @@ public class NovaEmpresa extends HttpServlet {
 		DataBase.adicionaEmrpesa(empresa);
 		
 		req.setAttribute("nomeEmpresa", empresa.getNome());
-		resp.sendRedirect("listarEmpresas");
-		
-//		RequestDispatcher rd = req.getRequestDispatcher("/listarEmpresas");
-//		rd.forward(req, resp);
+		return "redirect:entrada?acao=ListaEmpresas";
 	}
-	
 }
