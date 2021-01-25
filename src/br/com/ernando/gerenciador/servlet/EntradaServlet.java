@@ -4,30 +4,29 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import br.com.ernando.gerenciador.acao.Acao;
 
-@WebServlet("/entrada")
+//@WebServlet("/entrada")
 public class EntradaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings({ "rawtypes", "deprecation" })
 	@Override
 		protected void service(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 			String paramAcao = request.getParameter("acao");
 			
-			HttpSession session = request.getSession();
-			boolean usuarioNaoLogado = (session.getAttribute("usuarioLogado") == null);
-			boolean ehUmaAcaoProtegida = !(paramAcao.contentEquals("Login") || paramAcao.contentEquals("LoginForm"));
-			
-			if(ehUmaAcaoProtegida && usuarioNaoLogado) {
-				response.sendRedirect("entrada?acao=LoginForm");
-				return;
-			}
+//			HttpSession session = request.getSession();
+//			boolean usuarioNaoLogado = (session.getAttribute("usuarioLogado") == null);
+//			boolean ehUmaAcaoProtegida = !(paramAcao.contentEquals("Login") || paramAcao.contentEquals("LoginForm"));
+//			
+//			if(ehUmaAcaoProtegida && usuarioNaoLogado) {
+//				response.sendRedirect("entrada?acao=LoginForm");
+//				return;
+//			}
 			String nomeDaClasse  = "br.com.ernando.gerenciador.acao."+paramAcao;
 			
 			String nome;
